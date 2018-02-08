@@ -11,10 +11,10 @@ public class PlayerBehavior : MonoBehaviour {
 	private bool isJumping;
 
 	//so player only jumps once
-	/*private bool isTouchingGround;
+	private bool isTouchingGround;
 	public Transform groundCheckPoint;
 	public float groundCheckRadius;
-	public LayerMask groundLayer;*/
+	public LayerMask groundLayer;
 
 	//for player animation during movement
 	//public PlayerAnimation playerAnim;
@@ -26,17 +26,16 @@ public class PlayerBehavior : MonoBehaviour {
 	{
 		//For Jump movements 
 		rb = GetComponent<Rigidbody2D> ();
-		jumpForce = 500;
+		jumpForce = 300;
 		isJumping = false;
 
 		//For Player animation
-		/*
-		playerAnim = GameObject.Find("Player").GetComponent<PlayerAnimation>();
-		playerAnim.playerSpriteRenderer.sprite = playerAnim.idleSprite;
-		playerAnim.playerSpriteRenderer.sprite = playerAnim.movingSprite;
-		playerAnim.playerSpriteRenderer.sprite = playerAnim.jumpingSprite;
-		playerAnim.playerSpriteRenderer.sprite = playerAnim.attackingSprite;
-		*/
+		//playerAnim = GameObject.Find("Player").GetComponent<PlayerAnimation>();
+		//playerAnim.playerSpriteRenderer.sprite = playerAnim.idleSprite;
+		//playerAnim.playerSpriteRenderer.sprite = playerAnim.movingSprite;
+		//playerAnim.playerSpriteRenderer.sprite = playerAnim.jumpingSprite;
+		//playerAnim.playerSpriteRenderer.sprite = playerAnim.attackingSprite;
+
 
 		//For player flip
 		spriteRenderer = GetComponent<SpriteRenderer>();
@@ -46,7 +45,7 @@ public class PlayerBehavior : MonoBehaviour {
 	void Update ()
 	{
 		//So player can only jump if they're touching the ground
-		//isTouchingGround = Physics2D.OverlapCircle (groundCheckPoint.position, groundCheckRadius, groundLayer);
+		isTouchingGround = Physics2D.OverlapCircle (groundCheckPoint.position, groundCheckRadius, groundLayer);
 
 		//Player movement left
 		if (Input.GetKey (KeyCode.A)) 
@@ -67,7 +66,7 @@ public class PlayerBehavior : MonoBehaviour {
 			spriteRenderer.flipX = true;
 		}
 		//Player movement for jump
-		if (Input.GetButtonDown ("Jump")) 
+		if (Input.GetButtonDown ("Jump") && isTouchingGround) 
 		{
 			rb.AddForce (new Vector2(0, jumpForce));
 			//playerAnim.playerSpriteRenderer.sprite = playerAnim.jumpingSprite;

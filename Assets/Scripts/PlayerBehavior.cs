@@ -16,9 +16,6 @@ public class PlayerBehavior : MonoBehaviour {
 	public float groundCheckRadius;
 	public LayerMask groundLayer;
 
-	//for player animation during movement
-	//public PlayerAnimation playerAnim;
-
 	//to flip sprite
 	SpriteRenderer spriteRenderer;
 
@@ -26,16 +23,8 @@ public class PlayerBehavior : MonoBehaviour {
 	{
 		//For Jump movements 
 		rb = GetComponent<Rigidbody2D> ();
-		jumpForce = 300;
+		jumpForce = 50;
 		isJumping = false;
-
-		//For Player animation
-		//playerAnim = GameObject.Find("Player").GetComponent<PlayerAnimation>();
-		//playerAnim.playerSpriteRenderer.sprite = playerAnim.idleSprite;
-		//playerAnim.playerSpriteRenderer.sprite = playerAnim.movingSprite;
-		//playerAnim.playerSpriteRenderer.sprite = playerAnim.jumpingSprite;
-		//playerAnim.playerSpriteRenderer.sprite = playerAnim.attackingSprite;
-
 
 		//For player flip
 		spriteRenderer = GetComponent<SpriteRenderer>();
@@ -51,7 +40,6 @@ public class PlayerBehavior : MonoBehaviour {
 		if (Input.GetKey (KeyCode.A)) 
 		{
 			transform.position += Vector3.left * speed * Time.deltaTime;
-			//playerAnim.playerSpriteRenderer.sprite = playerAnim.movingSprite;
 
 			//to flip left
 			spriteRenderer.flipX = false;
@@ -60,15 +48,15 @@ public class PlayerBehavior : MonoBehaviour {
 		if (Input.GetKey (KeyCode.D)) 
 		{
 			transform.position += Vector3.right * speed * Time.deltaTime;
-			//playerAnim.playerSpriteRenderer.sprite = playerAnim.movingSprite;
 
 			//to flip right
 			spriteRenderer.flipX = true;
 		}
 		//Player movement for jump
-		if (Input.GetButtonDown ("Jump") && isTouchingGround) 
+		if (Input.GetKey (KeyCode.W) && isTouchingGround) 
 		{
-			rb.AddForce (new Vector2(0, jumpForce));
+			rb.AddForce (new Vector3(0, jumpForce));
+
 			//playerAnim.playerSpriteRenderer.sprite = playerAnim.jumpingSprite;
 		}
 	}

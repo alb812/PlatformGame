@@ -10,7 +10,7 @@ public class PlayerBehavior : MonoBehaviour {
 	private Rigidbody2D rb;
 	private bool isJumping;
 
-	//so player only jumps once
+	//so player only jumps once off of the ground
 	private bool isTouchingGround;
 	public Transform groundCheckPoint;
 	public float groundCheckRadius;
@@ -23,7 +23,7 @@ public class PlayerBehavior : MonoBehaviour {
 	{
 		//For Jump movements 
 		rb = GetComponent<Rigidbody2D> ();
-		jumpForce = 50;
+		jumpForce = 70;
 		isJumping = false;
 
 		//For player flip
@@ -36,25 +36,28 @@ public class PlayerBehavior : MonoBehaviour {
 		//So player can only jump if they're touching the ground
 		isTouchingGround = Physics2D.OverlapCircle (groundCheckPoint.position, groundCheckRadius, groundLayer);
 
-		//Player movement left
+		//When player presses the A Key
 		if (Input.GetKey (KeyCode.A)) 
 		{
+			//player moves left
 			transform.position += Vector3.left * speed * Time.deltaTime;
 
 			//to flip left
 			spriteRenderer.flipX = false;
 		}
-		//Player movement right
+		//When player presses the D Key
 		if (Input.GetKey (KeyCode.D)) 
 		{
+			//player moves right
 			transform.position += Vector3.right * speed * Time.deltaTime;
 
 			//to flip right
 			spriteRenderer.flipX = true;
 		}
-		//Player movement for jump
+		//If player presses the W Key and is touching the ground
 		if (Input.GetKey (KeyCode.W) && isTouchingGround) 
 		{
+			//Adds force to the player jump
 			rb.AddForce (new Vector3(0, jumpForce));
 
 			//playerAnim.playerSpriteRenderer.sprite = playerAnim.jumpingSprite;

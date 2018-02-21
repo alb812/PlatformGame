@@ -13898,8 +13898,8 @@ Camera:
   m_GameObject: {fileID: 1711163543}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.19117647, g: 0.19117647, b: 0.19117647, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -16319,6 +16319,7 @@ GameObject:
   - component: {fileID: 2068650409}
   - component: {fileID: 2068650408}
   - component: {fileID: 2068650407}
+  - component: {fileID: 2068650410}
   - component: {fileID: 2068650406}
   - component: {fileID: 2068650405}
   m_Layer: 0
@@ -16438,6 +16439,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2068650410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2068650404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f47adff349034f519e8c2d4c16d507b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectile: {fileID: 1941359156186644, guid: 8e2b70e307de4432a9120a775faf2747, type: 2}
+  velocity: {x: 5, y: 0}
+  offset: {x: 0.4, y: 0.1}
+  cooldown: 1
 --- !u!1 &2082616507
 GameObject:
   m_ObjectHideFlags: 0

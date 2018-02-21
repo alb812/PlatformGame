@@ -26,6 +26,8 @@ public class PlayerBehavior : MonoBehaviour {
 		jumpForce = 70;
 		isJumping = false;
 
+		//for shooting projectiles
+
 		//For player flip
 		spriteRenderer = GetComponent<SpriteRenderer>();
 
@@ -42,6 +44,7 @@ public class PlayerBehavior : MonoBehaviour {
 			//player moves left
 			transform.position += Vector3.left * speed * Time.deltaTime;
 
+
 			//to flip left
 			spriteRenderer.flipX = false;
 		}
@@ -55,21 +58,24 @@ public class PlayerBehavior : MonoBehaviour {
 			spriteRenderer.flipX = true;
 		}
 		//If player presses the W Key and is touching the ground
-		if (Input.GetKey (KeyCode.W) && isTouchingGround) 
-		{
-			//Adds force to the player jump
-			rb.AddForce (new Vector3(0, jumpForce));
+			if (Input.GetKey (KeyCode.W) && isTouchingGround) 
+				{
+				//Adds force to the player jump
+				rb.AddForce (new Vector3(0, jumpForce));
 
-			//playerAnim.playerSpriteRenderer.sprite = playerAnim.jumpingSprite;
+				//playerAnim.playerSpriteRenderer.sprite = playerAnim.jumpingSprite;
+				}
+		
 		}
-			
-	}
+
+
 
 	//check for Jump
 	void onCollisionEnter2D(Collision2D coll)
 	{
-		if (coll.gameObject.tag == "Ground" /*&& isTouchingGround*/)
+		if (coll.gameObject.tag == "Ground"){ /*&& isTouchingGround*/
 			isJumping = false;
+		}
 	}
 
 	void OnTriggerEnter2D(Collider2D other) 
@@ -79,5 +85,6 @@ public class PlayerBehavior : MonoBehaviour {
 		{
 			other.gameObject.SetActive(false);
 		}
+
+		}
 	}
-}

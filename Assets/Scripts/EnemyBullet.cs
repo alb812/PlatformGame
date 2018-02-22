@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class EnemyBullet : MonoBehaviour {
 
-	float moveSpeed = 3f;
+	float moveSpeed = 1f;
 
-	Rigidbody2D rb;
+	private Rigidbody2D rb;
 
 	PlayerBehavior target;
 	Vector2 moveDirection;
@@ -28,6 +28,11 @@ public class EnemyBullet : MonoBehaviour {
 	void OnTriggerEnter2D (Collider2D col){
 
 		if (col.gameObject.name == "Player") {
+			Debug.Log ("Hit!");
+			Destroy (gameObject);
+		}
+
+		if (col.gameObject.name == "Ground") {
 			Debug.Log ("Hit!");
 			Destroy (gameObject);
 		}

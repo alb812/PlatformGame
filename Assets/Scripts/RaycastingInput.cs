@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class RaycastingInput : MonoBehaviour {
 
-	SpriteRenderer TempEnemy;
+	/*SpriteRenderer TempEnemy;
 
 	// Use this for initialization
 	void Start () {
@@ -32,5 +32,5 @@ public class RaycastingInput : MonoBehaviour {
 			TempEnemy.color = Color.white;
 
 		}
-	}
+	}*/
 }

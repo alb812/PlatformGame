@@ -7,7 +7,8 @@ public class PlayerBehavior : MonoBehaviour {
 	//for basic player movement
 	public float speed = 2.0f;
 	private float jumpForce;
-	private Rigidbody2D rb;
+	//Possible reason why I have an error Rigidbody context error
+	public Rigidbody2D rb; 
 	private bool isJumping;
 
 	//so player only jumps once off of the ground
@@ -33,7 +34,7 @@ public class PlayerBehavior : MonoBehaviour {
 		jumpForce = 70;
 		isJumping = false;
 
-		//for gameOver
+		//for game over
 		gameOverText.SetActive(false);
 		restartButton.SetActive (false);
 
@@ -84,7 +85,7 @@ public class PlayerBehavior : MonoBehaviour {
 	}
 
 	void fire(){
-
+		//so bullets change direction with player
 		bulletPos = transform.position;
 		if (facingRight) 
 		{
@@ -106,10 +107,10 @@ public class PlayerBehavior : MonoBehaviour {
 		}
 		//so player gets GAME OVER when touched by enemy
 		if (col.gameObject.tag == "Enemy") {
+			Destroy (col.gameObject);
 			gameOverText.SetActive (true);
 			restartButton.SetActive (true);
 			gameObject.SetActive (false);
-			Debug.Log ("Enemy has touched player");
 		}
 
 		if (col.gameObject.tag == "EnemyBullet") {

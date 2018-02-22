@@ -6,7 +6,7 @@ public class PlayerShooting : MonoBehaviour {
 
 	public float velX = 5f;
 	float velY = 0f;
-	Rigidbody2D rb;
+	public Rigidbody2D rb;
 
 	void Start(){
 
@@ -21,7 +21,10 @@ public class PlayerShooting : MonoBehaviour {
 		rb.velocity = new Vector2 (velX, velY);
 
 	}
-
-
-
+	void onCollisionEnter2D(Collision2D col)
+	{
+		if (col.gameObject.tag == "Ground") {
+			Destroy (gameObject);
+		}
+	}
 }

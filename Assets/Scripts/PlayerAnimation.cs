@@ -9,7 +9,7 @@ public class PlayerAnimation : MonoBehaviour {
 	public Sprite attackingSprite;
 	public Sprite jumpingSprite;
 
-	public SpriteRenderer playerSpriteRenderer;
+	//public SpriteRenderer playerSpriteRenderer;
 
 	// Use this for initialization
 	void Start () {

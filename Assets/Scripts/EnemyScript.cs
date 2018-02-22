@@ -12,12 +12,12 @@ public class EnemyScript : MonoBehaviour {
 	float nextFire;
 
 	//For Enemy Detection
-	Rigidbody2D enemyRB;
+	private Rigidbody2D enemyRB;
 
 	// Use this for initialization
 	void Start () {
 
-		fireRate = 1f;
+		fireRate = 7f;
 		nextFire = Time.time;
 
 		//Enemy Detection

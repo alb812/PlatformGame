@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBehavior : MonoBehaviour {
+public class KillPlayer : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {

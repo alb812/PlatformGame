@@ -16,6 +16,13 @@ public class PlayerBehavior : MonoBehaviour {
 	public float groundCheckRadius;
 	public LayerMask groundLayer;
 
+	//for player shooting
+	public GameObject bulletToRight, bulletToLeft, gameOverText, restartButton;
+	Vector2 bulletPos;
+	public float fireRate = 0.5f;
+	float nextFire = 0.0f;
+	bool facingRight = true;
+
 	//to flip sprite
 	SpriteRenderer spriteRenderer;
 
@@ -26,7 +33,10 @@ public class PlayerBehavior : MonoBehaviour {
 		jumpForce = 70;
 		isJumping = false;
 
-		//for shooting projectiles
+		//for gameOver
+		gameOverText.SetActive(false);
+		restartButton.SetActive (false);
+
 
 		//For player flip
 		spriteRenderer = GetComponent<SpriteRenderer>();
@@ -43,7 +53,7 @@ public class PlayerBehavior : MonoBehaviour {
 		{
 			//player moves left
 			transform.position += Vector3.left * speed * Time.deltaTime;
-
+			facingRight = false; 
 
 			//to flip left
 			spriteRenderer.flipX = false;
@@ -53,6 +63,7 @@ public class PlayerBehavior : MonoBehaviour {
 		{
 			//player moves right
 			transform.position += Vector3.right * speed * Time.deltaTime;
+			facingRight = true;
 
 			//to flip right
 			spriteRenderer.flipX = true;
@@ -65,16 +76,46 @@ public class PlayerBehavior : MonoBehaviour {
 
 				//playerAnim.playerSpriteRenderer.sprite = playerAnim.jumpingSprite;
 				}
-		
+		//For player shooting
+		if (Input.GetButtonDown ("Jump") && Time.time > nextFire) {
+			nextFire = Time.time + fireRate;
+			fire ();
+		}
+	}
+
+	void fire(){
+
+		bulletPos = transform.position;
+		if (facingRight) 
+		{
+			bulletPos += new Vector2(+1f, -0.13f);
+			Instantiate (bulletToRight, bulletPos, Quaternion.identity);
+		}else { 
+			bulletPos += new Vector2(-1f, -0.13f);
+			Instantiate (bulletToLeft, bulletPos, Quaternion.identity);
 		}
 
-
+	}
 
 	//check for Jump
-	void onCollisionEnter2D(Collision2D coll)
+	void onCollisionEnter2D(Collision2D col)
 	{
-		if (coll.gameObject.tag == "Ground"){ /*&& isTouchingGround*/
+		//so player only jumps once off the ground
+		if (col.gameObject.tag == "Ground" && isTouchingGround){ 
 			isJumping = false;
+		}
+		//so player gets GAME OVER when touched by enemy
+		if (col.gameObject.tag == "Enemy") {
+			gameOverText.SetActive (true);
+			restartButton.SetActive (true);
+			gameObject.SetActive (false);
+			Debug.Log ("Enemy has touched player");
+		}
+
+		if (col.gameObject.tag == "EnemyBullet") {
+			gameOverText.SetActive (true);
+			restartButton.SetActive (true);
+			gameObject.SetActive (false);
 		}
 	}
 

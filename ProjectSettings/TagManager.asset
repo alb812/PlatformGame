@@ -6,6 +6,8 @@ TagManager:
   tags:
   - HealthPickUp
   - Enemy
+  - Bullet
+  - Ground
   layers:
   - Default
   - TransparentFX

@@ -7,7 +7,6 @@ public class PlayerBehavior : MonoBehaviour {
 	//for basic player movement
 	public float speed = 2.0f;
 	private float jumpForce;
-	//Possible reason why I have an error Rigidbody context error
 	public Rigidbody2D rb; 
 	private bool isJumping;
 
@@ -16,6 +15,12 @@ public class PlayerBehavior : MonoBehaviour {
 	public Transform groundCheckPoint;
 	public float groundCheckRadius;
 	public LayerMask groundLayer;
+
+	//for stats
+	public int currentHealth;
+	public int maxHealth = 100;
+	public int currentMagic;
+	public int maxMagic = 100;
 
 	//for player shooting
 	public GameObject bulletToRight, bulletToLeft, gameOverText, restartButton;
@@ -41,6 +46,10 @@ public class PlayerBehavior : MonoBehaviour {
 
 		//For player flip
 		spriteRenderer = GetComponent<SpriteRenderer>();
+
+		//For stats
+		currentHealth = maxHealth;
+		currentMagic = maxMagic;
 
 	}
 
@@ -82,6 +91,14 @@ public class PlayerBehavior : MonoBehaviour {
 			nextFire = Time.time + fireRate;
 			fire ();
 		}
+
+		if (currentHealth > maxHealth) {
+			currentHealth = maxHealth;
+		}
+
+		if (currentHealth <= 0) {
+			Die();
+		}
 	}
 
 	void fire(){
@@ -99,7 +116,7 @@ public class PlayerBehavior : MonoBehaviour {
 	}
 
 	//check for Jump
-	void onCollisionEnter2D(Collision2D col)
+	void OnCollisionEnter2D(Collision2D col)
 	{
 		//so player only jumps once off the ground
 		if (col.gameObject.tag == "Ground" && isTouchingGround){ 
@@ -107,16 +124,14 @@ public class PlayerBehavior : MonoBehaviour {
 		}
 		//so player gets GAME OVER when touched by enemy
 		if (col.gameObject.tag == "Enemy") {
-			Destroy (col.gameObject);
-			gameOverText.SetActive (true);
-			restartButton.SetActive (true);
-			gameObject.SetActive (false);
+			maxHealth -= 25;
+			Debug.Log ("Enemy has hit player!");
 		}
-
+		//so player gets GAME OVER when touched by enemy bullets
 		if (col.gameObject.tag == "EnemyBullet") {
-			gameOverText.SetActive (true);
-			restartButton.SetActive (true);
-			gameObject.SetActive (false);
+			Destroy (col.gameObject);
+			maxHealth -= 15;
+			Debug.Log ("Enemy bullet has hit player!");
 		}
 	}
 
@@ -128,5 +143,13 @@ public class PlayerBehavior : MonoBehaviour {
 			other.gameObject.SetActive(false);
 		}
 
-		}
 	}
+		
+	void Die (){
+		gameOverText.SetActive (true);
+		restartButton.SetActive (true);
+		gameObject.SetActive (false);
+	}
+}
+
+

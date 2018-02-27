@@ -29,13 +29,7 @@ public class EnemyScript : MonoBehaviour {
 	void Update () {
 		CheckIfTimeToFire ();
 	}
-
-	void OnTriggerEnter2D(Collider2D other){
-		if (other.tag == "Player") {
-			
-
-		}
-	}
+		
 
 	//If player bullet hits enemy, enemy is destroyed
 	void OnCollisionEnter2D (Collision2D col){

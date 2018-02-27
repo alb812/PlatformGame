@@ -21,9 +21,10 @@ public class PlayerShooting : MonoBehaviour {
 		rb.velocity = new Vector2 (velX, velY);
 
 	}
-	void onCollisionEnter2D(Collision2D col)
+	void OnTriggerEnter2D(Collider2D col)
 	{
 		if (col.gameObject.tag == "Ground") {
+			Debug.Log ("bullet has hit ground");
 			Destroy (gameObject);
 		}
 	}

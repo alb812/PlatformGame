@@ -10,11 +10,14 @@ public class PlayerBehavior : MonoBehaviour {
 	public Rigidbody2D rb; 
 	private bool isJumping;
 
-	//so player only jumps once off of the ground
+	//so player only jumps once off of the ground 
 	private bool isTouchingGround;
 	public Transform groundCheckPoint;
 	public float groundCheckRadius;
 	public LayerMask groundLayer;
+	//for double jump
+	public int maxJumps = 2;
+	int jumps;
 
 	//for stats
 	public int currentHealth;
@@ -24,6 +27,7 @@ public class PlayerBehavior : MonoBehaviour {
 
 	//for player shooting
 	public GameObject bulletToRight, bulletToLeft, gameOverText, restartButton;
+	public bool isShooting;
 	Vector2 bulletPos;
 	public float fireRate = 0.5f;
 	float nextFire = 0.0f;
@@ -31,6 +35,12 @@ public class PlayerBehavior : MonoBehaviour {
 
 	//to flip sprite
 	SpriteRenderer spriteRenderer;
+
+
+	void Awake(){
+		//used for double jump
+		jumps = maxJumps;
+	}
 
 	void Start ()
 	{
@@ -50,6 +60,7 @@ public class PlayerBehavior : MonoBehaviour {
 		//For stats
 		currentHealth = maxHealth;
 		currentMagic = maxMagic;
+		isShooting = true;
 
 	}
 
@@ -86,18 +97,36 @@ public class PlayerBehavior : MonoBehaviour {
 
 				//playerAnim.playerSpriteRenderer.sprite = playerAnim.jumpingSprite;
 				}
+
+		//For double jump
+		/*if (Input.GetKey (KeyCode.W)) 
+		{
+			Jump ();
+		}*/
+			
 		//For player shooting
-		if (Input.GetButtonDown ("Jump") && Time.time > nextFire) {
+		if (Input.GetButtonDown ("Jump") && Time.time > nextFire && isShooting == true) {
 			nextFire = Time.time + fireRate;
+			maxMagic -= 25;
 			fire ();
 		}
-
+		//for player health
 		if (currentHealth > maxHealth) {
 			currentHealth = maxHealth;
 		}
-
+		//if player loses all health, Restart
 		if (currentHealth <= 0) {
 			Die();
+		}
+
+		//for player magic
+		if (currentMagic > maxMagic) {
+			currentMagic = maxMagic;
+			isShooting = true;
+		}
+		//if player loses all magic, can't shoot
+		if (currentMagic <= 0) {
+			isShooting = false;
 		}
 	}
 
@@ -119,8 +148,10 @@ public class PlayerBehavior : MonoBehaviour {
 	void OnCollisionEnter2D(Collision2D col)
 	{
 		//so player only jumps once off the ground
-		if (col.gameObject.tag == "Ground" && isTouchingGround){ 
-			isJumping = false;
+		if (col.gameObject.tag == "Ground"){ 
+			//jumps = maxJumps;
+			isTouchingGround = true;
+			//jumpForce = 2.0f;
 		}
 		//so player gets GAME OVER when touched by enemy
 		if (col.gameObject.tag == "Enemy") {
@@ -129,8 +160,7 @@ public class PlayerBehavior : MonoBehaviour {
 		}
 		//so player gets GAME OVER when touched by enemy bullets
 		if (col.gameObject.tag == "EnemyBullet") {
-			Destroy (col.gameObject);
-			maxHealth -= 15;
+			maxHealth -= 20;
 			Debug.Log ("Enemy bullet has hit player!");
 		}
 	}
@@ -144,8 +174,24 @@ public class PlayerBehavior : MonoBehaviour {
 		}
 
 	}
+
+	//for player double jump
+	/*void Jump(){
+
+		if (jumps > 0) {
+			gameObject.GetComponent<Rigidbody2D> ().AddForce (new Vector2 (0, jumpForce), ForceMode2D.Impulse);
+			isTouchingGround = false;
+			jumps = jumps - 1;
+		}
+
+		if (jumps == 0) {
+			return;
+		}
+
+	}*/
 		
 	void Die (){
+		//player restart upon death
 		gameOverText.SetActive (true);
 		restartButton.SetActive (true);
 		gameObject.SetActive (false);

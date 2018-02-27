@@ -3296,7 +3296,7 @@ GameObject:
   - component: {fileID: 409961422}
   - component: {fileID: 409961421}
   - component: {fileID: 409961420}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BigWall (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16672,7 +16672,7 @@ GameObject:
   - component: {fileID: 1398330181}
   - component: {fileID: 1398330183}
   - component: {fileID: 1398330182}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BigWall (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19195,7 +19195,7 @@ GameObject:
   - component: {fileID: 1638664022}
   - component: {fileID: 1638664024}
   - component: {fileID: 1638664023}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BigWall (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24308,6 +24308,11 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 256
+  maxJumps: 2
+  currentHealth: 0
+  maxHealth: 100
+  currentMagic: 0
+  maxMagic: 100
   bulletToRight: {fileID: 1941359156186644, guid: 8e2b70e307de4432a9120a775faf2747,
     type: 2}
   bulletToLeft: {fileID: 1394013611885230, guid: e4e9814ca1dbf4d84968112fe106da15,

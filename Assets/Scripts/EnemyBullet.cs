@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyBullet : MonoBehaviour {
 
-	float moveSpeed = 1f;
+	float moveSpeed = 3f;
 
 	private Rigidbody2D rb;
 
@@ -26,13 +26,13 @@ public class EnemyBullet : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D (Collider2D col){
-
+		//if enemy bullet hits player, it is destroyed
 		if (col.gameObject.name == "Player") {
-			Debug.Log ("Hit!");
+			Debug.Log ("Enemy Bullet has Hit!");
 			Destroy (gameObject);
 		}
-
-		if (col.gameObject.name == "Ground") {
+		//if enemy bullet hits ground, it is destroyed
+		if (col.gameObject.tag == "Ground") {
 			Debug.Log ("Hit!");
 			Destroy (gameObject);
 		}

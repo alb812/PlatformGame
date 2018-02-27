@@ -11,6 +11,10 @@ public class EnemyScript : MonoBehaviour {
 	float fireRate;
 	float nextFire;
 
+	//for EnemyHealth
+	public int EnCurrentHealth;
+	public int EnMaxHealth = 100;
+
 	//For Enemy Detection
 	private Rigidbody2D enemyRB;
 
@@ -20,6 +24,9 @@ public class EnemyScript : MonoBehaviour {
 		fireRate = 7f;
 		nextFire = Time.time;
 
+		//for Enemy health
+		EnCurrentHealth = EnMaxHealth;
+
 		//Enemy Detection
 		enemyRB = GetComponent<Rigidbody2D> ();
 
@@ -28,17 +35,28 @@ public class EnemyScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		CheckIfTimeToFire ();
+
+		//for enemy health
+		if (EnCurrentHealth > EnMaxHealth) {
+			EnCurrentHealth = EnMaxHealth;
+		}
+		//if player loses all health, Restart
+		if (EnCurrentHealth <= 0) {
+			Destroy (gameObject);
+		}
 	}
 		
 
 	//If player bullet hits enemy, enemy is destroyed
 	void OnCollisionEnter2D (Collision2D col){
 		if (col.gameObject.tag == "Bullet") {
-			Destroy (col.gameObject);
-			Destroy (gameObject);
+			//Destroy (col.gameObject);
+			//Destroy (gameObject);
+			EnMaxHealth -= 25;
+			Debug.Log ("Player has hit Enemy!");
 		}
-
 	}
+		
 
 	//Enemy bullet fire time
 	void CheckIfTimeToFire(){

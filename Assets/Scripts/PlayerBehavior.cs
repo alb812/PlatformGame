@@ -23,7 +23,7 @@ public class PlayerBehavior : MonoBehaviour {
 	public int currentHealth;
 	public int maxHealth = 100;
 	public int currentMagic;
-	public int maxMagic = 100;
+	public int maxMagic = 80;
 
 	//for player shooting
 	public GameObject bulletToRight, bulletToLeft, gameOverText, restartButton;
@@ -107,7 +107,7 @@ public class PlayerBehavior : MonoBehaviour {
 		//For player shooting
 		if (Input.GetButtonDown ("Jump") && Time.time > nextFire && isShooting == true) {
 			nextFire = Time.time + fireRate;
-			maxMagic -= 25;
+			currentMagic -= 10;
 			fire ();
 		}
 		//for player health
@@ -155,14 +155,10 @@ public class PlayerBehavior : MonoBehaviour {
 		}
 		//so player gets GAME OVER when touched by enemy
 		if (col.gameObject.tag == "Enemy") {
-			maxHealth -= 25;
+			currentHealth -= 25;
 			Debug.Log ("Enemy has hit player!");
 		}
-		//so player gets GAME OVER when touched by enemy bullets
-		if (col.gameObject.tag == "EnemyBullet") {
-			maxHealth -= 20;
-			Debug.Log ("Enemy bullet has hit player!");
-		}
+
 	}
 
 	void OnTriggerEnter2D(Collider2D other) 
@@ -171,7 +167,21 @@ public class PlayerBehavior : MonoBehaviour {
 		if (other.gameObject.CompareTag("HealthPickUp"))
 		{
 			other.gameObject.SetActive(false);
+			Debug.Log ("Player has picked up Health Kit");
+			currentHealth = 100;
 		}
+
+		if (other.gameObject.CompareTag ("MagicPickUp")) {
+			other.gameObject.SetActive (false);
+			Debug.Log ("Player has picked up Mana");
+			currentMagic = 80;
+			isShooting = true;
+		}
+			//so player gets GAME OVER when touched by enemy bullets
+			if (other.gameObject.tag == "EnemyBullet") {
+				currentHealth -= 20;
+				Debug.Log ("Player has been hit by Enemy Bullet!");
+			}
 
 	}
 

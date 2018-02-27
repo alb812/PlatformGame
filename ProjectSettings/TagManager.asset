@@ -9,6 +9,8 @@ TagManager:
   - Bullet
   - Ground
   - EnemyBullet
+  - MagicPickUp
+  - Boss
   layers:
   - Default
   - TransparentFX

@@ -23,13 +23,13 @@ public class PlayerBehavior : MonoBehaviour {
 	public int currentHealth;
 	public int maxHealth = 100;
 	public int currentMagic;
-	public int maxMagic = 80;
+	public int maxMagic = 150;
 
 	//for player shooting
 	public GameObject bulletToRight, bulletToLeft, gameOverText, restartButton;
 	public bool isShooting;
 	Vector2 bulletPos;
-	public float fireRate = 0.5f;
+	public float fireRate =0.7f;
 	float nextFire = 0.0f;
 	bool facingRight = true;
 
@@ -99,11 +99,17 @@ public class PlayerBehavior : MonoBehaviour {
 				}
 
 		//For double jump
-		/*if (Input.GetKey (KeyCode.W)) 
+		/*if (Input.GetKey (KeyCode.W) && isTouchingGround) 
 		{
-			Jump ();
+			if(maxJumps== 2){
+				rb.AddForce (new Vector3(0, jumpForce));
+				maxJumps -= 1;
+			}
+				if(maxJumps == 0){
+				isTouchingGround = false;
+			}	
 		}*/
-			
+
 		//For player shooting
 		if (Input.GetButtonDown ("Jump") && Time.time > nextFire && isShooting == true) {
 			nextFire = Time.time + fireRate;
@@ -159,6 +165,12 @@ public class PlayerBehavior : MonoBehaviour {
 			Debug.Log ("Enemy has hit player!");
 		}
 
+		//so player gets GAME OVER when touched by enemy
+		if (col.gameObject.tag == "Boss") {
+			currentHealth -= 25;
+			Debug.Log ("Boss has hit player!");
+		}
+
 	}
 
 	void OnTriggerEnter2D(Collider2D other) 
@@ -183,23 +195,14 @@ public class PlayerBehavior : MonoBehaviour {
 				Debug.Log ("Player has been hit by Enemy Bullet!");
 			}
 
+		//so player gets GAME OVER when touched by enemy bullets
+		if (other.gameObject.tag == "EnemyBullet") {
+			currentHealth -= 20;
+			Debug.Log ("Player has been hit by Enemy Bullet!");
+		}
+
 	}
-
-	//for player double jump
-	/*void Jump(){
-
-		if (jumps > 0) {
-			gameObject.GetComponent<Rigidbody2D> ().AddForce (new Vector2 (0, jumpForce), ForceMode2D.Impulse);
-			isTouchingGround = false;
-			jumps = jumps - 1;
-		}
-
-		if (jumps == 0) {
-			return;
-		}
-
-	}*/
-		
+				
 	void Die (){
 		//player restart upon death
 		gameOverText.SetActive (true);

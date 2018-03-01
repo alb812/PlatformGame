@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBullet : MonoBehaviour {
+public class BossBullet : MonoBehaviour {
 
-	float moveSpeed = 3f;
+	float moveSpeed = 5f;
 
 	private Rigidbody2D rb;
 
@@ -19,10 +19,10 @@ public class EnemyBullet : MonoBehaviour {
 		rb.velocity = new Vector2 (moveDirection.x, moveDirection.y);
 		Destroy (gameObject, 3f);
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
-		
+
 	}
 
 	void OnTriggerEnter2D (Collider2D col){

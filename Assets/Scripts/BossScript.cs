@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class EnemyScript : MonoBehaviour {
+public class BossScript : MonoBehaviour {
 
+	// Use this for initialization
 	//For Enemy Shooting
 	[SerializeField]
 	GameObject bullet;
@@ -15,23 +17,30 @@ public class EnemyScript : MonoBehaviour {
 	public int EnCurrentHealth;
 	public int EnMaxHealth = 100;
 
+	//for mainMenu
+	public GameObject YouWinText, MainMenuButton;
+
 	//For Enemy Detection
 	private Rigidbody2D enemyRB;
 
 	// Use this for initialization
 	void Start () {
 
-		fireRate = 4f;
+		fireRate = 2f;
 		nextFire = Time.time;
 
 		//for Enemy health
 		EnCurrentHealth = EnMaxHealth;
 
+		YouWinText.SetActive(false);
+		MainMenuButton.SetActive (false);
+
+
 		//Enemy Detection
 		enemyRB = GetComponent<Rigidbody2D> ();
 
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 		CheckIfTimeToFire ();
@@ -43,12 +52,13 @@ public class EnemyScript : MonoBehaviour {
 		//if player loses all health, Restart
 		if (EnCurrentHealth <= 0) {
 			Destroy (gameObject);
+			Die();
 		}
 	}
-		
+
 
 	//If player bullet hits enemy, enemy is destroyed
-	void OnTriggerEnter2D (Collider2D col){
+	void OnCollisionEnter2D (Collision2D col){
 		if (col.gameObject.tag == "Bullet") {
 			//Destroy (col.gameObject);
 			//Destroy (gameObject);
@@ -56,7 +66,7 @@ public class EnemyScript : MonoBehaviour {
 			Debug.Log ("Player has hit Enemy!");
 		}
 	}
-		
+
 
 	//Enemy bullet fire time
 	void CheckIfTimeToFire(){
@@ -65,5 +75,11 @@ public class EnemyScript : MonoBehaviour {
 			nextFire = Time.time + fireRate;
 		}
 
+	}
+
+	void Die (){
+		YouWinText.SetActive (true);
+		MainMenuButton.SetActive (true);
+		gameObject.SetActive (false);
 	}
 }

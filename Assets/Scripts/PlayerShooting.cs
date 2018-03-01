@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerShooting : MonoBehaviour {
 
-	public float velX = 5f;
+	public float velX = 2f;
 	float velY = 0f;
 	public Rigidbody2D rb;
 
@@ -24,8 +24,19 @@ public class PlayerShooting : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D col)
 	{
 		if (col.gameObject.tag == "Ground") {
-			Debug.Log ("bullet has hit ground");
+			Debug.Log ("Player bullet has hit ground");
 			Destroy (gameObject);
 		}
+
+			if (col.gameObject.tag == "Enemy") {
+				Debug.Log ("Player bullet has hit target");
+				Destroy (gameObject);
+			}
+
+		if (col.gameObject.tag == "Boss") {
+			Debug.Log ("Player bullet has hit Boss");
+			Destroy (gameObject);
+		}
+
 	}
 }

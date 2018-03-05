@@ -165,7 +165,7 @@ public class PlayerBehavior : MonoBehaviour {
 			Debug.Log ("Enemy has hit player!");
 		}
 
-		//so player gets GAME OVER when touched by enemy
+		//so player gets GAME OVER when touched by Boss
 		if (col.gameObject.tag == "Boss") {
 			currentHealth -= 25;
 			Debug.Log ("Boss has hit player!");
@@ -194,13 +194,6 @@ public class PlayerBehavior : MonoBehaviour {
 				currentHealth -= 20;
 				Debug.Log ("Player has been hit by Enemy Bullet!");
 			}
-
-		//so player gets GAME OVER when touched by enemy bullets
-		if (other.gameObject.tag == "EnemyBullet") {
-			currentHealth -= 20;
-			Debug.Log ("Player has been hit by Enemy Bullet!");
-		}
-
 	}
 				
 	void Die (){

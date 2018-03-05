@@ -58,7 +58,7 @@ public class BossScript : MonoBehaviour {
 
 
 	//If player bullet hits enemy, enemy is destroyed
-	void OnCollisionEnter2D (Collision2D col){
+	void OnTriggerEnter2D (Collider2D col){
 		if (col.gameObject.tag == "Bullet") {
 			//Destroy (col.gameObject);
 			//Destroy (gameObject);

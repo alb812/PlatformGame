@@ -21,9 +21,9 @@ TagManager:
   - 
   - 
   - Ground
-  - 
-  - 
-  - 
+  - Player
+  - Enemy
+  - Pickup
   - 
   - 
   - 

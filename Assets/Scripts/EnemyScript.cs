@@ -13,10 +13,10 @@ public class EnemyScript : MonoBehaviour {
 
 	//for EnemyHealth
 	public int EnCurrentHealth;
-	public int EnMaxHealth = 100;
+	public int EnMaxHealth = 150;
 
 	//For Enemy Detection
-	private Rigidbody2D enemyRB;
+	public float radius;
 
 	// Use this for initialization
 	void Start () {
@@ -28,14 +28,13 @@ public class EnemyScript : MonoBehaviour {
 		EnCurrentHealth = EnMaxHealth;
 
 		//Enemy Detection
-		enemyRB = GetComponent<Rigidbody2D> ();
+		//enemyRB = GetComponent<Rigidbody2D> ();
 
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		CheckIfTimeToFire ();
-
+		
 		//for enemy health
 		if (EnCurrentHealth > EnMaxHealth) {
 			EnCurrentHealth = EnMaxHealth;
@@ -43,6 +42,14 @@ public class EnemyScript : MonoBehaviour {
 		//if player loses all health, Restart
 		if (EnCurrentHealth <= 0) {
 			Destroy (gameObject);
+		}
+
+		Collider2D Detected = Physics2D.OverlapCircle (transform.position, radius, LayerMask.NameToLayer("Player"));
+		//for player detection
+		if (Detected != null) {
+
+			CheckIfTimeToFire ();
+			Debug.Log ("Enemy has detected player!" + Detected.name);
 		}
 	}
 		
@@ -52,7 +59,7 @@ public class EnemyScript : MonoBehaviour {
 		if (col.gameObject.tag == "Bullet") {
 			//Destroy (col.gameObject);
 			//Destroy (gameObject);
-			EnMaxHealth -= 25;
+			EnCurrentHealth -= 25;
 			Debug.Log ("Player has hit Enemy!");
 		}
 	}

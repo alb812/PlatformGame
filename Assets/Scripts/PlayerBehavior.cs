@@ -113,6 +113,7 @@ public class PlayerBehavior : MonoBehaviour {
 		//For player shooting
 		if (Input.GetButtonDown ("Jump") && Time.time > nextFire && isShooting == true) {
 			nextFire = Time.time + fireRate;
+			ManabarScript.Mana -= 10f;
 			currentMagic -= 10;
 			fire ();
 		}
@@ -162,12 +163,14 @@ public class PlayerBehavior : MonoBehaviour {
 		//so player gets GAME OVER when touched by enemy
 		if (col.gameObject.tag == "Enemy") {
 			currentHealth -= 25;
+			HealthBarScript.health -= 25f;
 			Debug.Log ("Enemy has hit player!");
 		}
 
 		//so player gets GAME OVER when touched by Boss
 		if (col.gameObject.tag == "Boss") {
 			currentHealth -= 25;
+			HealthBarScript.health -= 25f;
 			Debug.Log ("Boss has hit player!");
 		}
 
@@ -181,17 +184,20 @@ public class PlayerBehavior : MonoBehaviour {
 			other.gameObject.SetActive(false);
 			Debug.Log ("Player has picked up Health Kit");
 			currentHealth = 100;
+			HealthBarScript.health = 100f;
 		}
 
 		if (other.gameObject.CompareTag ("MagicPickUp")) {
 			other.gameObject.SetActive (false);
 			Debug.Log ("Player has picked up Mana");
 			currentMagic = 80;
+			ManabarScript.Mana = 150f;
 			isShooting = true;
 		}
 			//so player gets GAME OVER when touched by enemy bullets
 			if (other.gameObject.tag == "EnemyBullet") {
 				currentHealth -= 20;
+				HealthBarScript.health -= 20f;
 				Debug.Log ("Player has been hit by Enemy Bullet!");
 			}
 	}

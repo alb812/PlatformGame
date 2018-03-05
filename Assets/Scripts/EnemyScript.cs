@@ -18,7 +18,17 @@ public class EnemyScript : MonoBehaviour {
 	//For Enemy Detection
 	public float radius;
 
+	//for enemy patrol
+	Rigidbody2D enemyRB;
+	public Transform originPoint;
+	public Transform originPoint2;
+	private Vector2 dir = new Vector2 (-1, 0);
+	public float range;
+	public float range2;
+	public float speed;
+
 	// Use this for initialization
+
 	void Start () {
 
 		fireRate = 4f;
@@ -27,9 +37,8 @@ public class EnemyScript : MonoBehaviour {
 		//for Enemy health
 		EnCurrentHealth = EnMaxHealth;
 
-		//Enemy Detection
-		//enemyRB = GetComponent<Rigidbody2D> ();
-
+		//for enemy patrolling
+		enemyRB = GetComponent<Rigidbody2D> ();
 	}
 	
 	// Update is called once per frame
@@ -51,9 +60,31 @@ public class EnemyScript : MonoBehaviour {
 			CheckIfTimeToFire ();
 			Debug.Log ("Enemy has detected player!" + Detected.name);
 		}
+
+		//for enemy patrolling
+		Debug.DrawRay(originPoint.position, dir * range);
+		RaycastHit2D hit= Physics2D.Raycast(originPoint.position, dir, range);
+		RaycastHit2D hit2= Physics2D.Raycast(originPoint2.position, dir, range2);
+
+		if (hit2 == true) {
+			if (hit2.collider.CompareTag ("Ground")) {
+				Flip ();
+				speed *= -1;
+				dir *= -1;
+			}
+		}
+		if (hit == false || hit.collider.CompareTag("Player")) {
+				Flip();
+				speed *= -1;
+				dir *= -1;
+		}
+	}
+
+	void FixedUpdate(){
+
+		enemyRB.velocity = new Vector2 (speed, enemyRB.velocity.y);
 	}
 		
-
 	//If player bullet hits enemy, enemy is destroyed
 	void OnTriggerEnter2D (Collider2D col){
 		if (col.gameObject.tag == "Bullet") {
@@ -71,6 +102,13 @@ public class EnemyScript : MonoBehaviour {
 			Instantiate (bullet, transform.position, Quaternion.identity);
 			nextFire = Time.time + fireRate;
 		}
-
 	}
+
+	//so enemy flips
+	void Flip(){
+		Vector3 theScale = transform.localScale;
+		theScale.x *= -1;
+		transform.localScale = theScale;
+	}
+		
 }

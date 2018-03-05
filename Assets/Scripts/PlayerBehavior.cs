@@ -190,7 +190,7 @@ public class PlayerBehavior : MonoBehaviour {
 		if (other.gameObject.CompareTag ("MagicPickUp")) {
 			other.gameObject.SetActive (false);
 			Debug.Log ("Player has picked up Mana");
-			currentMagic = 80;
+			currentMagic = 150;
 			ManabarScript.Mana = 150f;
 			isShooting = true;
 		}

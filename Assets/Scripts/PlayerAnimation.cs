@@ -4,12 +4,7 @@ using UnityEngine;
 
 public class PlayerAnimation : MonoBehaviour {
 
-	public Sprite idleSprite;
-	public Sprite movingSprite;
-	public Sprite attackingSprite;
-	public Sprite jumpingSprite;
-
-	//public SpriteRenderer playerSpriteRenderer;
+	public Animator animationController;
 
 	// Use this for initialization
 	void Start () {
@@ -18,6 +13,24 @@ public class PlayerAnimation : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+			if (Input.GetKey (KeyCode.LeftArrow)) {
+			animationController.Play("Playerleft");
+			}
+			if (Input.GetKey (KeyCode.RightArrow)) {
+				animationController.Play("Playerright");
+			}
+
+			if (Input.GetKeyDown (KeyCode.UpArrow)) {
+				animationController.Play("PlayerJump");
+			}
 		
+			if (Input.GetButtonDown ("Jump")) {
+				animationController.Play("PlayerAttack");
+			}
+
+				else{
+			animationController.Play("PlayerIdle");
+		}
 	}
 }

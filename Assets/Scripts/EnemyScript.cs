@@ -11,6 +11,9 @@ public class EnemyScript : MonoBehaviour {
 	float fireRate;
 	float nextFire;
 
+	//For animation
+	public Animator animationController;
+
 	//for EnemyHealth
 	public int EnCurrentHealth;
 	public int EnMaxHealth = 150;
@@ -101,6 +104,9 @@ public class EnemyScript : MonoBehaviour {
 		if (Time.time > nextFire) {
 			Instantiate (bullet, transform.position, Quaternion.identity);
 			nextFire = Time.time + fireRate;
+			animationController.Play("BadGuyAttack");
+		}
+		else{animationController.Play("BadGuyAnim");
 		}
 	}
 

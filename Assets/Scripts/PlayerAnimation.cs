@@ -17,18 +17,7 @@ public class PlayerAnimation : MonoBehaviour {
 			if (Input.GetKey (KeyCode.LeftArrow)) {
 			animationController.Play("Playerleft");
 			}
-			if (Input.GetKey (KeyCode.RightArrow)) {
-				animationController.Play("Playerright");
-			}
-
-			if (Input.GetKeyDown (KeyCode.UpArrow)) {
-				animationController.Play("PlayerJump");
-			}
-		
-			if (Input.GetButtonDown ("Jump")) {
-				animationController.Play("PlayerAttack");
-			}
-
+			
 				else{
 			animationController.Play("PlayerIdle");
 		}

@@ -9,10 +9,13 @@ public class PlayerBehavior : MonoBehaviour {
 	public float jumpSpeedY;
 	public Rigidbody2D rb; 
 
+	//For player animation
+	public Animator animationController;
+
 	private bool isJumping;
 
 	//so player only jumps once off of the ground 
-	private bool isTouchingGround;
+	public bool isTouchingGround;
 	public Transform groundCheckPoint;
 	public float groundCheckRadius;
 	public LayerMask groundLayer;
@@ -64,25 +67,28 @@ public class PlayerBehavior : MonoBehaviour {
 		isTouchingGround = Physics2D.OverlapCircle (groundCheckPoint.position, groundCheckRadius, groundLayer);
 
 		//When player presses the A Key
-		if (Input.GetKey (KeyCode.LeftArrow)) 
-		{
+		if (Input.GetKey (KeyCode.LeftArrow)) {
 			//player moves left
-			transform.position += Vector3.left * speed * Time.deltaTime;
+			rb.MovePosition (transform.position += Vector3.left * speed * Time.deltaTime);
 			facingRight = false; 
 
 			//to flip left
 			spriteRenderer.flipX = false;
+			animationController.Play ("PlayerWalking");
+		} else {
+			animationController.Play ("PlayerIdle");
 		}
 		//When player presses the D Key
-		if (Input.GetKey (KeyCode.RightArrow)) 
-		{
+		if (Input.GetKey (KeyCode.RightArrow)) {
 			//player moves right
-			transform.position += Vector3.right * speed * Time.deltaTime;
+			rb.MovePosition (transform.position += Vector3.right * speed * Time.deltaTime);
 			facingRight = true;
 
 			//to flip right
 			spriteRenderer.flipX = true;
-		}
+			animationController.Play ("PlayerWalking");
+		} else {animationController.Play ("PlayerIdle");
+			}
 		/*//If player presses the W Key and is touching the ground
 			if (Input.GetKey (KeyCode.W) && isTouchingGround) 
 				{
@@ -93,15 +99,14 @@ public class PlayerBehavior : MonoBehaviour {
 				}*/
 
 		//For double jump
-		if (Input.GetKeyDown(KeyCode.UpArrow) && isTouchingGround) 
-		{
+		if (Input.GetKeyDown (KeyCode.UpArrow) && isTouchingGround) {
 			Jump ();
-		}
+			}
 
 		if (Input.GetKeyDown(KeyCode.UpArrow) && canDoubleJump) 
 		{
 			Jump ();
-		}
+			}
 
 		//For player shooting
 		if (Input.GetButtonDown ("Jump") && Time.time > nextFire && isShooting == true) {
@@ -109,7 +114,9 @@ public class PlayerBehavior : MonoBehaviour {
 			ManabarScript.Mana -= 10f;
 			currentMagic -= 10;
 			fire ();
-		}
+			animationController.Play ("PlayerAttack");
+		} else {animationController.Play ("PlayerIdle");
+			}
 		//for player health
 		if (currentHealth > maxHealth) {
 			currentHealth = maxHealth;
@@ -168,6 +175,8 @@ public class PlayerBehavior : MonoBehaviour {
 			Debug.Log ("Boss has hit player!");
 		}
 
+		Debug.Log (col.collider.name);
+
 	}
 
 	void OnTriggerEnter2D(Collider2D other) 
@@ -199,18 +208,20 @@ public class PlayerBehavior : MonoBehaviour {
 	//for jump 
 	void Jump(){
 
+		//for double jump
+		if(canDoubleJump){
+			canDoubleJump = false;
+			rb.AddForce (new Vector2 (rb.velocity.x, jumpSpeedY));
+			} 
+
 		//single jump
 		if (isTouchingGround) {
 			isJumping = true;
 			isTouchingGround = false;
 			rb.AddForce (new Vector2 (rb.velocity.x, jumpSpeedY));
 			Invoke ("EnableDoubleJump", delayBeforeDoubleJump);
-		}
-		//for double jump
-		if(canDoubleJump){
-			canDoubleJump = false;
-			rb.AddForce (new Vector2 (rb.velocity.x, jumpSpeedY));
-		}
+		} 
+
 	}
 
 	void EnableDoubleJump(){
@@ -223,6 +234,7 @@ public class PlayerBehavior : MonoBehaviour {
 		restartButton.SetActive (true);
 		gameObject.SetActive (false);
 	}
+
 }
 
 

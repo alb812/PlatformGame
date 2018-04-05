@@ -13,6 +13,14 @@ public class BossScript : MonoBehaviour {
 	float fireRate;
 	float nextFire;
 
+	//ForBossSFX
+	public AudioSource EnemyAttack;
+	public AudioSource EnemyDeath;
+	public AudioSource DefeatBoss;
+
+	//ForBossAnim
+	public Animator animationController;
+
 	//for EnemyHealth
 	public int EnCurrentHealth;
 	public int EnMaxHealth = 100;
@@ -94,6 +102,7 @@ public class BossScript : MonoBehaviour {
 			//Destroy (gameObject);
 			EnMaxHealth -= 25;
 			Debug.Log ("Player has hit Enemy!");
+			EnemyDeath.Play ();
 		}
 	}
 
@@ -103,7 +112,10 @@ public class BossScript : MonoBehaviour {
 		if (Time.time > nextFire) {
 			Instantiate (bullet, transform.position, Quaternion.identity);
 			nextFire = Time.time + fireRate;
-		}
+			EnemyAttack.Play ();
+			animationController.Play ("BossAttack");
+		} else {animationController.Play ("BossWalking");
+			}
 
 	}
 
@@ -118,5 +130,6 @@ public class BossScript : MonoBehaviour {
 		YouWinText.SetActive (true);
 		MainMenuButton.SetActive (true);
 		gameObject.SetActive (false);
+		DefeatBoss.Play ();
 	}
 }

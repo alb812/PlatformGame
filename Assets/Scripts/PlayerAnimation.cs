@@ -14,12 +14,10 @@ public class PlayerAnimation : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-			if (Input.GetKey (KeyCode.LeftArrow)) {
+			/*if (Input.GetKey (KeyCode.LeftArrow)) {
 			animationController.Play("Playerleft");
 			}
-			
 				else{
-			animationController.Play("PlayerIdle");
+			animationController.Play("PlayerIdle");*/
 		}
-	}
 }

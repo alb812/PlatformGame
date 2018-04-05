@@ -14,6 +14,10 @@ public class EnemyScript : MonoBehaviour {
 	//For animation
 	public Animator animationController;
 
+	//For EnemySFX
+	public AudioSource EnemyAttack;
+	public AudioSource EnemyDeath;
+
 	//for EnemyHealth
 	public int EnCurrentHealth;
 	public int EnMaxHealth = 150;
@@ -95,6 +99,7 @@ public class EnemyScript : MonoBehaviour {
 			//Destroy (gameObject);
 			EnCurrentHealth -= 25;
 			Debug.Log ("Player has hit Enemy!");
+			EnemyDeath.Play ();
 		}
 	}
 		
@@ -105,6 +110,7 @@ public class EnemyScript : MonoBehaviour {
 			Instantiate (bullet, transform.position, Quaternion.identity);
 			nextFire = Time.time + fireRate;
 			animationController.Play("BadGuyAttack");
+			EnemyAttack.Play();
 		}
 		else{animationController.Play("BadGuyAnim");
 		}

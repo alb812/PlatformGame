@@ -12,6 +12,13 @@ public class PlayerBehavior : MonoBehaviour {
 	//For player animation
 	public Animator animationController;
 
+	//For playerSFX
+	public AudioSource JumpSFX;
+	public AudioSource Hit;
+	public AudioSource PlayerAttack;
+	public AudioSource PlayerDeath;
+	public AudioSource PickUp;
+
 	private bool isJumping;
 
 	//so player only jumps once off of the ground 
@@ -76,7 +83,7 @@ public class PlayerBehavior : MonoBehaviour {
 			spriteRenderer.flipX = false;
 			animationController.Play ("PlayerWalking");
 		} else {
-			animationController.Play ("PlayerIdle");
+			animationController.Play("PlayerIdle");
 		}
 		//When player presses the D Key
 		if (Input.GetKey (KeyCode.RightArrow)) {
@@ -101,11 +108,19 @@ public class PlayerBehavior : MonoBehaviour {
 		//For double jump
 		if (Input.GetKeyDown (KeyCode.UpArrow) && isTouchingGround) {
 			Jump ();
+			JumpSFX.Play();
+			animationController.Play ("PlayerJump");
+		} else {
+			animationController.Play("PlayerIdle");
 			}
 
 		if (Input.GetKeyDown(KeyCode.UpArrow) && canDoubleJump) 
 		{
 			Jump ();
+			JumpSFX.Play();
+			animationController.Play ("PlayerJump");
+		} else {
+			animationController.Play("PlayerIdle");
 			}
 
 		//For player shooting
@@ -115,6 +130,7 @@ public class PlayerBehavior : MonoBehaviour {
 			currentMagic -= 10;
 			fire ();
 			animationController.Play ("PlayerAttack");
+			PlayerAttack.Play ();
 		} else {animationController.Play ("PlayerIdle");
 			}
 		//for player health
@@ -124,6 +140,7 @@ public class PlayerBehavior : MonoBehaviour {
 		//if player loses all health, Restart
 		if (currentHealth <= 0) {
 			Die();
+			PlayerDeath.Play();
 		}
 
 		//for player magic
@@ -142,10 +159,10 @@ public class PlayerBehavior : MonoBehaviour {
 		bulletPos = transform.position;
 		if (facingRight) 
 		{
-			bulletPos += new Vector2(+1f, -0.13f);
+			bulletPos += new Vector2(+1f, 0.5f);
 			Instantiate (bulletToRight, bulletPos, Quaternion.identity);
 		}else { 
-			bulletPos += new Vector2(-1f, -0.13f);
+			bulletPos += new Vector2(-1f, 0.5f);
 			Instantiate (bulletToLeft, bulletPos, Quaternion.identity);
 		}
 
@@ -188,20 +205,23 @@ public class PlayerBehavior : MonoBehaviour {
 			Debug.Log ("Player has picked up Health Kit");
 			currentHealth = 100;
 			HealthBarScript.health = 100f;
+			PickUp.Play ();
 		}
-		//pick up mafic items
+		//pick up magic items
 		if (other.gameObject.CompareTag ("MagicPickUp")) {
 			other.gameObject.SetActive (false);
 			Debug.Log ("Player has picked up Mana");
 			currentMagic = 150;
 			ManabarScript.Mana = 150f;
 			isShooting = true;
+			PickUp.Play();
 		}
 			//so player gets GAME OVER when touched by enemy bullets
 			if (other.gameObject.tag == "EnemyBullet") {
 				currentHealth -= 20;
 				HealthBarScript.health -= 20f;
 				Debug.Log ("Player has been hit by Enemy Bullet!");
+				Hit.Play ();
 			}
 	}
 
@@ -212,6 +232,7 @@ public class PlayerBehavior : MonoBehaviour {
 		if(canDoubleJump){
 			canDoubleJump = false;
 			rb.AddForce (new Vector2 (rb.velocity.x, jumpSpeedY));
+
 			} 
 
 		//single jump

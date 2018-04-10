@@ -14,9 +14,13 @@ public class EnemyBullet : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody2D> ();
+		//so bullets find player
 		target = GameObject.FindObjectOfType<PlayerBehavior> ();
+		//so bullets move
 		moveDirection = (target.transform.position - transform.position).normalized * moveSpeed;
+		//bullet speed
 		rb.velocity = new Vector2 (moveDirection.x, moveDirection.y);
+		//bullet is destroyed after time
 		Destroy (gameObject, 3f);
 	}
 	

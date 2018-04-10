@@ -14,9 +14,13 @@ public class BossBullet : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody2D> ();
+		//so bullet follows player
 		target = GameObject.FindObjectOfType<PlayerBehavior> ();
+		//bullet movement
 		moveDirection = (target.transform.position - transform.position).normalized * moveSpeed;
+		//bullet speed
 		rb.velocity = new Vector2 (moveDirection.x, moveDirection.y);
+		//bullet is destroyed after time
 		Destroy (gameObject, 3f);
 	}
 

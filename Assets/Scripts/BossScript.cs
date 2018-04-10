@@ -48,9 +48,9 @@ public class BossScript : MonoBehaviour {
 		//for Enemy health
 		EnCurrentHealth = EnMaxHealth;
 
+		//You win text
 		YouWinText.SetActive(false);
 		MainMenuButton.SetActive (false);
-
 
 		//Enemy Detection
 		enemyRB = GetComponent<Rigidbody2D> ();
@@ -76,6 +76,7 @@ public class BossScript : MonoBehaviour {
 		RaycastHit2D hit= Physics2D.Raycast(originPoint.position, dir, range);
 		RaycastHit2D hit2= Physics2D.Raycast(originPoint2.position, dir, range2);
 
+		//for origin point 2
 		if (hit2 == true) {
 			if (hit2.collider.CompareTag ("Ground")) {
 				Flip ();
@@ -83,6 +84,7 @@ public class BossScript : MonoBehaviour {
 				dir *= -1;
 			}
 		}
+		//for origin point 1
 		if (hit == false || hit.collider.CompareTag("Player")) {
 			Flip();
 			speed *= -1;
@@ -91,7 +93,7 @@ public class BossScript : MonoBehaviour {
 	}
 
 	void FixedUpdate(){
-
+		//enemyy speed
 		enemyRB.velocity = new Vector2 (speed, enemyRB.velocity.y);
 	}
 

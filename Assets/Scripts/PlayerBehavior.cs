@@ -81,6 +81,7 @@ public class PlayerBehavior : MonoBehaviour {
 
 			//to flip left
 			spriteRenderer.flipX = false;
+			//animation walk left
 			animationController.Play ("PlayerWalking");
 		} else {
 			animationController.Play("PlayerIdle");
@@ -93,17 +94,10 @@ public class PlayerBehavior : MonoBehaviour {
 
 			//to flip right
 			spriteRenderer.flipX = true;
+			//animation walk right
 			animationController.Play ("PlayerWalking");
 		} else {animationController.Play ("PlayerIdle");
 			}
-		/*//If player presses the W Key and is touching the ground
-			if (Input.GetKey (KeyCode.W) && isTouchingGround) 
-				{
-				//Adds force to the player jump
-				rb.AddForce (new Vector3(0, jumpForce));
-
-				//playerAnim.playerSpriteRenderer.sprite = playerAnim.jumpingSprite;
-				}*/
 
 		//For double jump
 		if (Input.GetKeyDown (KeyCode.UpArrow) && isTouchingGround) {
@@ -128,7 +122,11 @@ public class PlayerBehavior : MonoBehaviour {
 			nextFire = Time.time + fireRate;
 			ManabarScript.Mana -= 10f;
 			currentMagic -= 10;
+
+			//void fire
 			fire ();
+
+			//animation for attack
 			animationController.Play ("PlayerAttack");
 			PlayerAttack.Play ();
 		} else {animationController.Play ("PlayerIdle");
@@ -244,7 +242,7 @@ public class PlayerBehavior : MonoBehaviour {
 		} 
 
 	}
-
+	//allows for double jump
 	void EnableDoubleJump(){
 		canDoubleJump = true;
 	}

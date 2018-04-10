@@ -73,6 +73,7 @@ public class EnemyScript : MonoBehaviour {
 		RaycastHit2D hit= Physics2D.Raycast(originPoint.position, dir, range);
 		RaycastHit2D hit2= Physics2D.Raycast(originPoint2.position, dir, range2);
 
+		//For origin point 2
 		if (hit2 == true) {
 			if (hit2.collider.CompareTag ("Ground")) {
 				Flip ();
@@ -80,6 +81,8 @@ public class EnemyScript : MonoBehaviour {
 				dir *= -1;
 			}
 		}
+
+		//For origin point 1
 		if (hit == false || hit.collider.CompareTag("Player")) {
 				Flip();
 				speed *= -1;

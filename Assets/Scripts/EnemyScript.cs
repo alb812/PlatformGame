@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyScript : MonoBehaviour {
+public class EnemyScript : MonoBehaviour
+{
 
 	//For Enemy Shooting
 	[SerializeField]
@@ -34,9 +35,22 @@ public class EnemyScript : MonoBehaviour {
 	public float range2;
 	public float speed;
 
+
+	// Added by Nick
+	public float moveVelocity;
+	private int direction = 1;
+	private bool patrolling = true;
+
+	private float pathLOS = 1f;
+	private float LOS_behind = -2.5f;
+
+	Ray pathRay;
+
+
 	// Use this for initialization
 
-	void Start () {
+	void Start ()
+	{
 
 		fireRate = 4f;
 		nextFire = Time.time;
@@ -46,30 +60,39 @@ public class EnemyScript : MonoBehaviour {
 
 		//for enemy patrolling
 		enemyRB = GetComponent<Rigidbody2D> ();
+
+		StartCoroutine ("Patrol");
+
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+	{
+
+
 		
 		//for enemy health
-		if (EnCurrentHealth > EnMaxHealth) {
+		if (EnCurrentHealth > EnMaxHealth)
+		{
 			EnCurrentHealth = EnMaxHealth;
 		}
 		//if player loses all health, Restart
-		if (EnCurrentHealth <= 0) {
+		if (EnCurrentHealth <= 0)
+		{
 			Destroy (gameObject);
 		}
 
-		Collider2D Detected = Physics2D.OverlapCircle (transform.position, radius, LayerMask.NameToLayer("Player"));
+		Collider2D Detected = Physics2D.OverlapCircle (transform.position, radius, LayerMask.NameToLayer ("Player"));
 		//for player detection
-		if (Detected != null) {
+		if (Detected != null)
+		{
 
 			CheckIfTimeToFire ();
 			Debug.Log ("Enemy has detected player!" + Detected.name);
 		}
 
 		//for enemy patrolling
-		Debug.DrawRay(originPoint.position, dir * range);
+		/*Debug.DrawRay(originPoint.position, dir * range);
 		RaycastHit2D hit= Physics2D.Raycast(originPoint.position, dir, range);
 		RaycastHit2D hit2= Physics2D.Raycast(originPoint2.position, dir, range2);
 
@@ -87,17 +110,39 @@ public class EnemyScript : MonoBehaviour {
 				Flip();
 				speed *= -1;
 				dir *= -1;
+		}*/
+		//RaycastHit2D path = Physics2D.Raycast (transform.position, transform.localScale.x * new Vector2 (-1, 1 * direction) * pathLOS);
+		//Debug.DrawRay (transform.position, transform.localScale.x * new Vector2 (-1, 1 * direction) * pathLOS);
+
+		RaycastHit2D path = Physics2D.Raycast (transform.position, transform.localScale.x * Vector2.left * pathLOS, pathLOS);
+
+		//Debug.DrawRay (transform.position, transform.localScale.x * Vector2.left * pathLOS);
+
+		//Flip ();
+		//Debug.Log(" ~~~~~~~~~~~~~PATH COLLIDER " +path.collider.name);
+
+		if (path.collider != null && path.collider.tag == "Edge")
+		{
+			Debug.Log ("HIT EDGE");
+			if (patrolling)
+			{
+				Flip ();
+			}
+		}
+
+		RaycastHit2D hitBehind = Physics2D.Raycast (transform.position, transform.localScale.x * Vector2.left, LOS_behind);
+		if (hitBehind.collider != null && hitBehind.collider.CompareTag ("Player"))
+		{
+			Flip ();
 		}
 	}
 
-	void FixedUpdate(){
-
-		enemyRB.velocity = new Vector2 (speed, enemyRB.velocity.y);
-	}
 		
 	//If player bullet hits enemy, enemy is destroyed
-	void OnTriggerEnter2D (Collider2D col){
-		if (col.gameObject.tag == "Bullet") {
+	void OnTriggerEnter2D (Collider2D col)
+	{
+		if (col.gameObject.tag == "Bullet")
+		{
 			//Destroy (col.gameObject);
 			//Destroy (gameObject);
 			EnCurrentHealth -= 25;
@@ -108,22 +153,56 @@ public class EnemyScript : MonoBehaviour {
 		
 
 	//Enemy bullet fire time
-	void CheckIfTimeToFire(){
-		if (Time.time > nextFire) {
+	void CheckIfTimeToFire ()
+	{
+		if (Time.time > nextFire)
+		{
 			Instantiate (bullet, transform.position, Quaternion.identity);
 			nextFire = Time.time + fireRate;
-			animationController.Play("BadGuyAttack");
-			EnemyAttack.Play();
+			animationController.Play ("BadGuyAttack");
+			EnemyAttack.Play ();
 		}
-		else{animationController.Play("BadGuyAnim");
+		else
+		{
+			animationController.Play ("BadGuyAnim");
 		}
 	}
 
 	//so enemy flips
-	void Flip(){
+	void Flip ()
+	{
 		Vector3 theScale = transform.localScale;
 		theScale.x *= -1;
 		transform.localScale = theScale;
+
+		// For the patrol LOS detection
+		direction *= -1;
+	}
+
+	IEnumerator Patrol ()
+	{
+		while (patrolling)
+		{
+			// Patrol movement
+			moveVelocity = speed * direction;
+			enemyRB.velocity = new Vector2 (moveVelocity, enemyRB.velocity.y);
+
+
+			// Dont get rid of this...ever
+			yield return null;
+		}
+		
+	}
+
+	void OnDrawGizmos ()
+	{
+		Gizmos.color = Color.red;
+		//Gizmos.DrawLine (transform.position, transform.position + transform.localScale.x * Vector3.right * LOS);
+		//Gizmos.DrawLine (transform.position, transform.position + transform.localScale.x * Vector3.left * LOS_behind);
+
+
+		Gizmos.color = Color.blue;
+		//Gizmos.DrawRay (path);
 	}
 		
 }

@@ -8,6 +8,7 @@ public class PlayerBehavior : MonoBehaviour {
 	public float speed = 2.0f;
 	public float jumpSpeedY;
 	public Rigidbody2D rb; 
+	public CircleCollider2D coll;
 
 	//For player animation
 	public Animator animationController;
@@ -35,6 +36,7 @@ public class PlayerBehavior : MonoBehaviour {
 	public int maxHealth = 100;
 	public int currentMagic;
 	public int maxMagic = 150;
+	public int jumps = 2;
 
 	//for player shooting
 	public GameObject bulletToRight, bulletToLeft, gameOverText, restartButton;
@@ -51,6 +53,7 @@ public class PlayerBehavior : MonoBehaviour {
 	{
 		//For Jump movements 
 		rb = GetComponent<Rigidbody2D> ();
+		coll = GetComponent<CircleCollider2D> ();
 		isJumping = false;
 
 		//for game over
@@ -73,49 +76,41 @@ public class PlayerBehavior : MonoBehaviour {
 		//So player can only jump if they're touching the ground
 		isTouchingGround = Physics2D.OverlapCircle (groundCheckPoint.position, groundCheckRadius, groundLayer);
 
-		//When player presses the A Key
+		//When player presses the Left Key
 		if (Input.GetKey (KeyCode.LeftArrow)) {
-			//player moves left
-			rb.MovePosition (transform.position += Vector3.left * speed * Time.deltaTime);
-			facingRight = false; 
 
-			//to flip left
+			rb.velocity = new Vector2 (-speed, rb.velocity.y);
 			spriteRenderer.flipX = false;
-			//animation walk left
-			animationController.Play ("PlayerWalking");
+			facingRight = false;
+			animationController.SetBool ("isWalking", true);
+
+
+			//rigidBody.velocity = new Vector2 (-speedX, rigidBody.velocity.y);
+
 		} else {
-			animationController.Play("PlayerIdle");
-		}
+			animationController.SetBool ("isWalking", false);
+			}
 		//When player presses the D Key
 		if (Input.GetKey (KeyCode.RightArrow)) {
-			//player moves right
-			rb.MovePosition (transform.position += Vector3.right * speed * Time.deltaTime);
-			facingRight = true;
 
-			//to flip right
+			rb.velocity = new Vector2 (speed, rb.velocity.y);
 			spriteRenderer.flipX = true;
-			//animation walk right
-			animationController.Play ("PlayerWalking");
-		} else {animationController.Play ("PlayerIdle");
-			}
+			facingRight = true;
+			animationController.SetBool ("isWalking", true);
 
-		//For double jump
-		if (Input.GetKeyDown (KeyCode.UpArrow) && isTouchingGround) {
-			Jump ();
-			JumpSFX.Play();
-			animationController.Play ("PlayerJump");
+
 		} else {
-			animationController.Play("PlayerIdle");
+			animationController.SetBool ("isWalking", false);
+			//animationController.SetBool ("isIdle", false);
+
 			}
 
-		if (Input.GetKeyDown(KeyCode.UpArrow) && canDoubleJump) 
+		if (Input.GetKeyDown (KeyCode.UpArrow) && jumps > 0)
 		{
-			Jump ();
-			JumpSFX.Play();
-			animationController.Play ("PlayerJump");
-		} else {
-			animationController.Play("PlayerIdle");
-			}
+			rb.velocity = Vector2.up * jumpSpeedY;
+			jumps--;
+		}
+
 
 		//For player shooting
 		if (Input.GetButtonDown ("Jump") && Time.time > nextFire && isShooting == true) {
@@ -157,10 +152,10 @@ public class PlayerBehavior : MonoBehaviour {
 		bulletPos = transform.position;
 		if (facingRight) 
 		{
-			bulletPos += new Vector2(+1f, 0.5f);
+			bulletPos += new Vector2(+.5f, 0.5f);
 			Instantiate (bulletToRight, bulletPos, Quaternion.identity);
 		}else { 
-			bulletPos += new Vector2(-1f, 0.5f);
+			bulletPos += new Vector2(-.5f, 0.5f);
 			Instantiate (bulletToLeft, bulletPos, Quaternion.identity);
 		}
 
@@ -174,6 +169,9 @@ public class PlayerBehavior : MonoBehaviour {
 			isJumping = false;
 			isTouchingGround = true;
 			canDoubleJump = false;
+
+			//coll.sharedMaterial.friction = 0f;
+			jumps = 2;
 			//jumpForce = 2.0f;
 		}
 		//so player gets GAME OVER when touched by enemy
@@ -192,6 +190,14 @@ public class PlayerBehavior : MonoBehaviour {
 
 		Debug.Log (col.collider.name);
 
+	}
+
+	void OnCollisionExit2D(Collision2D col)
+	{
+		if (col.gameObject.tag == "Ground")
+		{
+			//coll.sharedMaterial.friction = 0f;
+		}
 	}
 
 	void OnTriggerEnter2D(Collider2D other) 
@@ -219,7 +225,7 @@ public class PlayerBehavior : MonoBehaviour {
 				currentHealth -= 20;
 				HealthBarScript.health -= 20f;
 				Debug.Log ("Player has been hit by Enemy Bullet!");
-				Hit.Play ();
+					Hit.Play ();
 			}
 	}
 

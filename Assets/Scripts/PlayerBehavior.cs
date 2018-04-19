@@ -46,6 +46,11 @@ public class PlayerBehavior : MonoBehaviour {
 	float nextFire = 0.0f;
 	bool facingRight = true;
 
+	//particlesystems
+	public ParticleSystem enemyfireSystem;
+	public ParticleSystem manapickupSystem;
+	public ParticleSystem potionpickupSystem;
+
 	//to flip sprite
 	SpriteRenderer spriteRenderer;
 
@@ -179,6 +184,7 @@ public class PlayerBehavior : MonoBehaviour {
 			currentHealth -= 25;
 			HealthBarScript.health -= 25f;
 			Debug.Log ("Enemy has hit player!");
+			enemyfireSystem.Play ();
 		}
 
 		//so player gets GAME OVER when touched by Boss
@@ -210,6 +216,7 @@ public class PlayerBehavior : MonoBehaviour {
 			currentHealth = 100;
 			HealthBarScript.health = 100f;
 			PickUp.Play ();
+			potionpickupSystem.Play();
 		}
 		//pick up magic items
 		if (other.gameObject.CompareTag ("MagicPickUp")) {
@@ -219,11 +226,13 @@ public class PlayerBehavior : MonoBehaviour {
 			ManabarScript.Mana = 150f;
 			isShooting = true;
 			PickUp.Play();
+			manapickupSystem.Play();
 		}
 			//so player gets GAME OVER when touched by enemy bullets
 			if (other.gameObject.tag == "EnemyBullet") {
 				currentHealth -= 20;
 				HealthBarScript.health -= 20f;
+				enemyfireSystem.Play ();
 				Debug.Log ("Player has been hit by Enemy Bullet!");
 					Hit.Play ();
 			}

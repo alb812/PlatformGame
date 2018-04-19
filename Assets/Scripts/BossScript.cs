@@ -34,7 +34,7 @@ public class BossScript : MonoBehaviour {
 	//for enemy patrol
 	public Transform originPoint;
 	public Transform originPoint2;
-	private Vector2 dir = new Vector2 (-1, 0);
+	//private Vector2 dir = new Vector2 (-1, 0);
 	public float range;
 	public float range2;
 	public float speed;
@@ -91,7 +91,7 @@ public class BossScript : MonoBehaviour {
 		{
 
 			CheckIfTimeToFire ();
-			Debug.Log ("Enemy has detected player!" + Detected.name);
+			Debug.Log ("Boss has detected player!" + Detected.name);
 		}
 
 		//for enemy patrolling
@@ -119,7 +119,7 @@ public class BossScript : MonoBehaviour {
 	}*/
 	if (path.collider != null && path.collider.tag == "Edge")
 	{
-		Debug.Log ("HIT EDGE");
+		Debug.Log ("BOSS HIT EDGE");
 		if (patrolling)
 		{
 			Flip ();
@@ -133,10 +133,10 @@ public class BossScript : MonoBehaviour {
 		}
 	}
 
-	void FixedUpdate(){
-		//enemyy speed
+	/*void FixedUpdate(){
+		//enemy speed
 		enemyRB.velocity = new Vector2 (speed, enemyRB.velocity.y);
-	}
+	}*/
 
 	//If player bullet hits enemy, enemy is destroyed
 	void OnTriggerEnter2D (Collider2D col){

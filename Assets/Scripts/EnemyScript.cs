@@ -30,11 +30,13 @@ public class EnemyScript : MonoBehaviour
 	Rigidbody2D enemyRB;
 	public Transform originPoint;
 	public Transform originPoint2;
-	private Vector2 dir = new Vector2 (-1, 0);
+	//private Vector2 dir = new Vector2 (-1, 0);
 	public float range;
 	public float range2;
 	public float speed;
 
+	//particle
+	public ParticleSystem redfireSystem;
 
 	// Added by Nick
 	public float moveVelocity;
@@ -148,6 +150,7 @@ public class EnemyScript : MonoBehaviour
 			EnCurrentHealth -= 25;
 			Debug.Log ("Player has hit Enemy!");
 			EnemyDeath.Play ();
+			redfireSystem.Play ();
 		}
 	}
 		

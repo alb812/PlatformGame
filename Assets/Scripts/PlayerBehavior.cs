@@ -109,9 +109,9 @@ public class PlayerBehavior : MonoBehaviour {
 		{
 			rb.velocity = Vector2.up * jumpSpeedY;
 			jumps--;
-		}
 
-
+			}
+			
 		//For player shooting
 		if (Input.GetButtonDown ("Jump") && Time.time > nextFire && isShooting == true) {
 			nextFire = Time.time + fireRate;

@@ -39,6 +39,19 @@ public class BossScript : MonoBehaviour {
 	public float range2;
 	public float speed;
 
+	//For Enemy Detection
+	public float radius;
+
+	// Added by Nick
+	public float moveVelocity;
+	private int direction = 1;
+	private bool patrolling = true;
+
+	private float pathLOS = 1f;
+	private float LOS_behind = -2.5f;
+
+	Ray pathRay;
+
 	// Use this for initialization
 	void Start () {
 
@@ -54,6 +67,7 @@ public class BossScript : MonoBehaviour {
 
 		//Enemy Detection
 		enemyRB = GetComponent<Rigidbody2D> ();
+		StartCoroutine ("Patrol");
 
 	}
 
@@ -71,11 +85,23 @@ public class BossScript : MonoBehaviour {
 			Die();
 		}
 
-		//for enemy patrolling
-		Debug.DrawRay(originPoint.position, dir * range);
-		RaycastHit2D hit= Physics2D.Raycast(originPoint.position, dir, range);
-		RaycastHit2D hit2= Physics2D.Raycast(originPoint2.position, dir, range2);
+		Collider2D Detected = Physics2D.OverlapCircle (transform.position, radius, LayerMask.NameToLayer ("Player"));
+		//for player detection
+		if (Detected != null)
+		{
 
+			CheckIfTimeToFire ();
+			Debug.Log ("Enemy has detected player!" + Detected.name);
+		}
+
+		//for enemy patrolling
+		//Debug.DrawRay(originPoint.position, dir * range);
+		//RaycastHit2D hit= Physics2D.Raycast(originPoint.position, dir, range);
+		//RaycastHit2D hit2= Physics2D.Raycast(originPoint2.position, dir, range2);
+
+		RaycastHit2D path = Physics2D.Raycast (transform.position, transform.localScale.x * Vector2.left * pathLOS, pathLOS);
+
+		/*
 		//for origin point 2
 		if (hit2 == true) {
 			if (hit2.collider.CompareTag ("Ground")) {
@@ -89,6 +115,21 @@ public class BossScript : MonoBehaviour {
 			Flip();
 			speed *= -1;
 			dir *= -1;
+		}
+	}*/
+	if (path.collider != null && path.collider.tag == "Edge")
+	{
+		Debug.Log ("HIT EDGE");
+		if (patrolling)
+		{
+			Flip ();
+		}
+	}
+
+	RaycastHit2D hitBehind = Physics2D.Raycast (transform.position, transform.localScale.x * Vector2.left, LOS_behind);
+	if (hitBehind.collider != null && hitBehind.collider.CompareTag ("Player"))
+		{
+			Flip ();
 		}
 	}
 
@@ -126,6 +167,35 @@ public class BossScript : MonoBehaviour {
 		Vector3 theScale = transform.localScale;
 		theScale.x *= -1;
 		transform.localScale = theScale;
+
+		// For the patrol LOS detection
+		direction *= -1;
+	}
+
+	IEnumerator Patrol ()
+	{
+		while (patrolling)
+		{
+		// Patrol movement
+			moveVelocity = speed * direction;
+			enemyRB.velocity = new Vector2 (moveVelocity, enemyRB.velocity.y);
+
+
+		// Dont get rid of this...ever
+			yield return null;
+		}
+
+	}
+
+	void OnDrawGizmos ()
+	{
+		Gizmos.color = Color.red;
+		//Gizmos.DrawLine (transform.position, transform.position + transform.localScale.x * Vector3.right * LOS);
+		//Gizmos.DrawLine (transform.position, transform.position + transform.localScale.x * Vector3.left * LOS_behind);
+
+
+		Gizmos.color = Color.blue;
+		//Gizmos.DrawRay (path);
 	}
 
 	void Die (){

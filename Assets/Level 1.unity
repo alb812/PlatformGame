@@ -13121,6 +13121,8 @@ Transform:
   - {fileID: 1841140533}
   - {fileID: 2089341665}
   - {fileID: 314823568}
+  - {fileID: 1257963497}
+  - {fileID: 2098991789}
   m_Father: {fileID: 0}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -17832,7 +17834,7 @@ Transform:
   m_LocalPosition: {x: 1.1567042, y: 7.9395, z: -0.013081076}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1569373422}
+  - {fileID: 996092443}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -33364,6 +33366,76 @@ Transform:
   m_Father: {fileID: 266913517}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &996092442
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 996092443}
+  - component: {fileID: 996092445}
+  - component: {fileID: 996092444}
+  m_Layer: 0
+  m_Name: MusicPlay
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &996092443
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 996092442}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 65.29, y: -13.7, z: -0.8027173}
+  m_LocalScale: {x: 1, y: 1.3999999, z: 1}
+  m_Children:
+  - {fileID: 1365088597}
+  - {fileID: 1569373422}
+  m_Father: {fileID: 642768923}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &996092444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 996092442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39657989a2e19451b9c90ef74bd338f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BossMusica: {fileID: 1365088598}
+  MainMusica: {fileID: 1569373423}
+--- !u!61 &996092445
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 996092442}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.02848053, y: 3.9669118}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 14.727585, y: 7.713235}
+  m_EdgeRadius: 0
 --- !u!1 &1001225040
 GameObject:
   m_ObjectHideFlags: 0
@@ -41958,6 +42030,81 @@ CircleCollider2D:
   m_Offset: {x: 0, y: -0.025744563}
   serializedVersion: 2
   m_Radius: 0.3573538
+--- !u!1 &1257963496
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1257963497}
+  - component: {fileID: 1257963499}
+  - component: {fileID: 1257963498}
+  m_Layer: 5
+  m_Name: Mana and Health
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1257963497
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1257963496}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 14.05, y: 0.87, z: 0}
+  m_LocalScale: {x: 2.9624999, y: 2.1125, z: 1}
+  m_Children: []
+  m_Father: {fileID: 539514147}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &1257963498
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1257963496}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.5192366, y: 0.6302655}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.3778957, y: 2.876226}
+  m_EdgeRadius: 0
+--- !u!114 &1257963499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1257963496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b29cb21eea6484cbcbb6c3207632d739, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GuiOn: 0
+  Text: Pick up Mana and Health Potions when you're low!
+  BoxSize:
+    serializedVersion: 2
+    x: 3.58
+    y: 30
+    width: 400
+    height: 100
+  customSkin: {fileID: 11400000, guid: 824be6d0408324f34841dd389a723759, type: 2}
 --- !u!1 &1270520133
 GameObject:
   m_ObjectHideFlags: 0
@@ -42221,13 +42368,13 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1273931079}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.19, y: -3.519, z: 0}
+  m_LocalPosition: {x: 3.48, y: -3.98, z: 0}
   m_LocalScale: {x: 1.3364735, y: 1.3364735, z: 1.3364735}
   m_Children:
   - {fileID: 1969526205}
   - {fileID: 1580929620}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!70 &1273931088
 CapsuleCollider2D:
@@ -42817,6 +42964,115 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d5dd3d06310549ad8297efb919b172a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1365088596
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1365088597}
+  - component: {fileID: 1365088598}
+  m_Layer: 0
+  m_Name: BossMusic
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1365088597
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1365088596}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 6.3469696, y: 6.272756, z: 0.11277634}
+  m_LocalScale: {x: 1, y: 0.7142858, z: 1}
+  m_Children: []
+  m_Father: {fileID: 996092443}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &1365088598
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1365088596}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 721a137b935af45499b9d0cbeb4a85a7, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!1 &1366699480
 GameObject:
   m_ObjectHideFlags: 0
@@ -50794,7 +51050,7 @@ GameObject:
   - component: {fileID: 1569373422}
   - component: {fileID: 1569373423}
   m_Layer: 0
-  m_Name: Audio Source
+  m_Name: MainMusic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -50806,12 +51062,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1569373421}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -65.29, y: 9.785715, z: 0.8027173}
+  m_LocalScale: {x: 1, y: 0.7142858, z: 1}
   m_Children: []
-  m_Father: {fileID: 642768923}
-  m_RootOrder: 0
+  m_Father: {fileID: 996092443}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &1569373423
 AudioSource:
@@ -58400,7 +58656,7 @@ Transform:
   - {fileID: 543766194}
   - {fileID: 1128040925}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1662824524
 GameObject:
@@ -65538,7 +65794,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1711163543}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.07, y: -1.91, z: -10}
+  m_LocalPosition: {x: 4.360001, y: -2.3709996, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -84136,10 +84392,10 @@ Tilemap:
       m_ObjectToInstantiate: {fileID: 0}
       m_TileFlags: 1
       m_ColliderType: 1
-  - first: {x: 42, y: 12, z: 0}
+  - first: {x: 41, y: 12, z: 0}
     second:
-      m_TileIndex: 1
-      m_TileSpriteIndex: 1
+      m_TileIndex: 3
+      m_TileSpriteIndex: 3
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_ObjectToInstantiate: {fileID: 0}
@@ -91268,17 +91524,21 @@ Tilemap:
   m_TileAssetArray:
   - m_RefCount: 17
     m_Data: {fileID: 11400000, guid: a67cbafda23a54d9284482569b45691f, type: 2}
-  - m_RefCount: 2291
+  - m_RefCount: 2290
     m_Data: {fileID: 11400000, guid: 9a9fa4a303fc14235b597f83d85c021d, type: 2}
   - m_RefCount: 97
     m_Data: {fileID: 11400000, guid: c3fe441ca8b614ce29b87eb5eb41ecc7, type: 2}
+  - m_RefCount: 1
+    m_Data: {fileID: 11400000, guid: cb6d80a2e01e043dc8012c7f9286f6c0, type: 2}
   m_TileSpriteArray:
   - m_RefCount: 17
     m_Data: {fileID: 21300000, guid: 385be29d5a87e4a29b489bbdde1a3590, type: 3}
-  - m_RefCount: 2291
+  - m_RefCount: 2290
     m_Data: {fileID: 21300000, guid: c9ebd816cac064b9e9c3b0e49679da91, type: 3}
   - m_RefCount: 97
     m_Data: {fileID: 21300000, guid: a510cd0e7e76c45f3bf534083168304b, type: 3}
+  - m_RefCount: 1
+    m_Data: {fileID: 21300000, guid: d894bfad10e0c4d4ab2226a471e31f62, type: 3}
   m_TileMatrixArray:
   - m_RefCount: 2405
     m_Data:
@@ -91327,6 +91587,8 @@ Tilemap:
     e32: 0
     e33: 1
   m_TileRefreshArray:
+  - serializedVersion: 1
+    m_DirtyIndex: 0
   - serializedVersion: 1
     m_DirtyIndex: 0
   - serializedVersion: 1
@@ -95954,12 +96216,87 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GuiOn: 0
-  Text: Press SPACE  to shoot!
+  Text: 'Press SPACE  to shoot! '
   BoxSize:
     serializedVersion: 2
     x: 3.58
     y: 30
     width: 250
+    height: 100
+  customSkin: {fileID: 11400000, guid: 824be6d0408324f34841dd389a723759, type: 2}
+--- !u!1 &2098991788
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 2098991789}
+  - component: {fileID: 2098991791}
+  - component: {fileID: 2098991790}
+  m_Layer: 5
+  m_Name: Mana and Health (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2098991789
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2098991788}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 21.25, y: -6.31, z: 0}
+  m_LocalScale: {x: 2.9624999, y: 2.1125, z: 1}
+  m_Children: []
+  m_Father: {fileID: 539514147}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &2098991790
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2098991788}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 1.1247865, y: 0.6302655}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2.667805, y: 2.876226}
+  m_EdgeRadius: 0
+--- !u!114 &2098991791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2098991788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b29cb21eea6484cbcbb6c3207632d739, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GuiOn: 0
+  Text: Pick up Mana and Health Potions when you're low!
+  BoxSize:
+    serializedVersion: 2
+    x: 3.58
+    y: 30
+    width: 400
     height: 100
   customSkin: {fileID: 11400000, guid: 824be6d0408324f34841dd389a723759, type: 2}
 --- !u!1 &2101915229

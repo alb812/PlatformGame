@@ -189,6 +189,7 @@ public class EnemyScript : MonoBehaviour
 			// Patrol movement
 			moveVelocity = speed * direction;
 			enemyRB.velocity = new Vector2 (moveVelocity, enemyRB.velocity.y);
+			animationController.Play ("BadGuyAnim");
 
 
 			// Dont get rid of this...ever

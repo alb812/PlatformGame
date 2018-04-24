@@ -11,7 +11,7 @@ public class PlayerBehavior : MonoBehaviour {
 	public CircleCollider2D coll;
 
 	//For player animation
-	public Animator animationController;
+	//public Animator animationController;
 
 	//For playerSFX
 	public AudioSource JumpSFX;
@@ -87,13 +87,13 @@ public class PlayerBehavior : MonoBehaviour {
 			rb.velocity = new Vector2 (-speed, rb.velocity.y);
 			spriteRenderer.flipX = false;
 			facingRight = false;
-			animationController.SetBool ("isWalking", true);
+			//animationController.SetBool ("isWalking", true);
 
 
 			//rigidBody.velocity = new Vector2 (-speedX, rigidBody.velocity.y);
 
-		} else {
-			animationController.SetBool ("isWalking", false);
+		//} else {
+			//animationController.SetBool ("isWalking", false);
 			}
 		//When player presses the D Key
 		if (Input.GetKey (KeyCode.RightArrow)) {
@@ -101,11 +101,11 @@ public class PlayerBehavior : MonoBehaviour {
 			rb.velocity = new Vector2 (speed, rb.velocity.y);
 			spriteRenderer.flipX = true;
 			facingRight = true;
-			animationController.SetBool ("isWalking", true);
+			//animationController.SetBool ("isWalking", true);
 
 
-		} else {
-			animationController.SetBool ("isWalking", false);
+		//} else {
+			//animationController.SetBool ("isWalking", false);
 			//animationController.SetBool ("isIdle", false);
 
 			}
@@ -114,6 +114,7 @@ public class PlayerBehavior : MonoBehaviour {
 		{
 			rb.velocity = Vector2.up * jumpSpeedY;
 			jumps--;
+			JumpSFX.Play ();
 
 			}
 			
@@ -127,10 +128,10 @@ public class PlayerBehavior : MonoBehaviour {
 			fire ();
 
 			//animation for attack
-			animationController.Play ("PlayerAttack");
+			//animationController.Play ("PlayerAttack");
 			PlayerAttack.Play ();
-		} else {animationController.Play ("PlayerIdle");
-			}
+		} //else {animationController.Play ("PlayerIdle");
+			//}
 		//for player health
 		if (currentHealth > maxHealth) {
 			currentHealth = maxHealth;

@@ -26,8 +26,8 @@ TagManager:
   - Enemy
   - Pickup
   - Bullet
-  - 
-  - 
+  - Edge
+  - Audio
   - 
   - 
   - 
@@ -54,4 +54,7 @@ TagManager:
     locked: 0
   - name: Pickups
     uniqueID: 1488911107
+    locked: 0
+  - name: Audio
+    uniqueID: 35516629
     locked: 0

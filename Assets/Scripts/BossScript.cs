@@ -39,6 +39,9 @@ public class BossScript : MonoBehaviour {
 	public float range2;
 	public float speed;
 
+	//particle
+	public ParticleSystem redfireSystem;
+
 	//For Enemy Detection
 	public float radius;
 
@@ -93,30 +96,10 @@ public class BossScript : MonoBehaviour {
 			CheckIfTimeToFire ();
 			Debug.Log ("Boss has detected player!" + Detected.name);
 		}
-
-		//for enemy patrolling
-		//Debug.DrawRay(originPoint.position, dir * range);
-		//RaycastHit2D hit= Physics2D.Raycast(originPoint.position, dir, range);
-		//RaycastHit2D hit2= Physics2D.Raycast(originPoint2.position, dir, range2);
+			
 
 		RaycastHit2D path = Physics2D.Raycast (transform.position, transform.localScale.x * Vector2.left * pathLOS, pathLOS);
 
-		/*
-		//for origin point 2
-		if (hit2 == true) {
-			if (hit2.collider.CompareTag ("Ground")) {
-				Flip ();
-				speed *= -1;
-				dir *= -1;
-			}
-		}
-		//for origin point 1
-		if (hit == false || hit.collider.CompareTag("Player")) {
-			Flip();
-			speed *= -1;
-			dir *= -1;
-		}
-	}*/
 	if (path.collider != null && path.collider.tag == "Edge")
 	{
 		Debug.Log ("BOSS HIT EDGE");
@@ -132,11 +115,7 @@ public class BossScript : MonoBehaviour {
 			Flip ();
 		}
 	}
-
-	/*void FixedUpdate(){
-		//enemy speed
-		enemyRB.velocity = new Vector2 (speed, enemyRB.velocity.y);
-	}*/
+		
 
 	//If player bullet hits enemy, enemy is destroyed
 	void OnTriggerEnter2D (Collider2D col){
@@ -146,13 +125,16 @@ public class BossScript : MonoBehaviour {
 			EnMaxHealth -= 25;
 			Debug.Log ("Player has hit Enemy!");
 			EnemyDeath.Play ();
+			redfireSystem.Play ();
 		}
 	}
 
 
 	//Enemy bullet fire time
-	void CheckIfTimeToFire(){
-		if (Time.time > nextFire) {
+	void CheckIfTimeToFire()
+	{
+		if (Time.time > nextFire) 
+			{
 			Instantiate (bullet, transform.position, Quaternion.identity);
 			nextFire = Time.time + fireRate;
 			EnemyAttack.Play ();

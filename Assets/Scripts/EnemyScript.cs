@@ -162,9 +162,8 @@ public class EnemyScript : MonoBehaviour
 		{
 			Instantiate (bullet, transform.position, Quaternion.identity);
 			nextFire = Time.time + fireRate;
-			animationController.Play ("BadGuyAttack");
 			EnemyAttack.Play ();
-		}
+			animationController.Play ("BadGuyAttack");}
 		else
 		{
 			animationController.Play ("BadGuyAnim");
